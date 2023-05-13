@@ -176,6 +176,7 @@ erpnext.PointOfSale.Controller = class {
 		this.page.add_menu_item(__("Save as Draft"), this.save_draft_invoice.bind(this), false, 'Ctrl+S');
 
 		this.page.add_menu_item(__('Close the POS'), this.close_pos.bind(this), false, 'Shift+Ctrl+C');
+		this.page.add_menu_item(__('Fullscreen Mode'), this.enter_fullscreen_mode.bind(this), false, 'Shift+Ctrl+M');
 	}
 
 	open_form_view() {
@@ -226,6 +227,14 @@ erpnext.PointOfSale.Controller = class {
 		voucher.period_end_date = frappe.datetime.now_datetime();
 		voucher.posting_date = frappe.datetime.now_date();
 		frappe.set_route('Form', 'POS Closing Entry', voucher.name);
+	}
+
+	enter_fullscreen_mode() {
+		if (!this.$components_wrapper.is(":visible")) return;
+
+
+		let pos_el = this.$components_wrapper;
+		pos_el[0].webkitRequestFullscreen()
 	}
 
 	init_item_selector() {
